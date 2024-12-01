@@ -7,7 +7,7 @@ import HomeLayout from './layouts/HomeLayout';
 
 function App() {
   return (
-    <HomeLayout className='flex flex-col items-center justify-center w-full'>
+    <HomeLayout className='flex flex-col items-center justify-center w-full '>
       <Toaster />
       <Outlet />
     </HomeLayout>

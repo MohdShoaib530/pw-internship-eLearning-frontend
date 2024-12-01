@@ -15,9 +15,10 @@ function CourseCreate() {
     title: '',
     description: '',
     category: '',
-    createdBy: '',
     thumbnail: null,
-    previewImage: ''
+    previewImage: '',
+    price: '',
+    duration: ''
   });
 
   function handleOnChange(e) {
@@ -47,19 +48,22 @@ function CourseCreate() {
 
   async function createCourse(e) {
     e.preventDefault();
+    console.log('courseData', courseData);
 
     if (
       !courseData.title ||
       !courseData.description ||
       !courseData.category ||
       !courseData.thumbnail ||
-      !courseData.createdBy
+      !courseData.price ||
+      !courseData.duration
     ) {
       toast.error('All fields are mandatory');
       return;
     }
     console.log('courseData', courseData);
     const response = await dispatch(createNewCourse(courseData));
+    console.log('response', response);
     if (response.payload.message === 'jwt expired') {
       return await dispatch(refreshAccessToken());
     }
@@ -68,10 +72,11 @@ function CourseCreate() {
       setCourseData({
         title: '',
         category: '',
-        createdBy: '',
         description: '',
         thumbnail: null,
-        previewImage: ''
+        previewImage: '',
+        price: '',
+        duration: ''
       });
       navigate('/courses');
     }
@@ -117,7 +122,7 @@ function CourseCreate() {
             </div>
             <div className='flex flex-col gap-1'>
               <label className='text-lg font-semibold' htmlFor='title'>
-                Course title
+                title
               </label>
               <input
                 required
@@ -130,28 +135,43 @@ function CourseCreate() {
                 onChange={handleOnChange}
               />
             </div>
+            <div className='flex flex-col gap-1'>
+              <label className='text-lg font-semibold' htmlFor='title'>
+                Price
+              </label>
+              <input
+                required
+                type='text'
+                name='price'
+                id='price'
+                placeholder='Enter course price'
+                className='bg-transparent px-2 py-1 border border-black rounded-xl'
+                value={courseData.price}
+                onChange={handleOnChange}
+              />
+            </div>
           </div>
 
           <div className='flex flex-col gap-1'>
             <div className='flex flex-col gap-1'>
               <label className='text-lg font-semibold' htmlFor='createdBy'>
-                Course Instructor
+                Duration
               </label>
               <input
                 required
                 type='text'
-                name='createdBy'
-                id='createdBy'
-                placeholder='Enter course instructor'
+                name='duration'
+                id='duration'
+                placeholder='Enter course duration'
                 className='bg-transparent px-2 py-1 border border-black rounded-lg'
-                value={courseData.createdBy}
+                value={courseData.duration}
                 onChange={handleOnChange}
               />
             </div>
 
             <div className='flex flex-col gap-1'>
               <label className='text-lg font-semibold' htmlFor='category'>
-                Course category
+                category
               </label>
               <input
                 required
@@ -166,7 +186,7 @@ function CourseCreate() {
             </div>
             <div className='flex flex-col gap-1'>
               <label className='text-lg font-semibold' htmlFor='description'>
-                Course description
+                description
               </label>
               <textarea
                 required

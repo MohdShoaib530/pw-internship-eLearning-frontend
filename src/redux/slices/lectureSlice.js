@@ -57,6 +57,7 @@ export const addLectures = createAsyncThunk('/lecture/add', async (data) => {
   }
 });
 
+
 const courseSlice = createSlice({
   name: 'lecture',
   initialState,

@@ -18,17 +18,18 @@ function AllCourses() {
   }, []);
 
   return (
-    <div className='flex flex-col w-full pt-24 pb-10  text-center  items-center justify-center'>
+    <div className='flex flex-col w-full pt-20 pb-10  text-center  items-center justify-center'>
       <div className='flex flex-col items-center justify-center'>
         <h1 className='text-xl md:text-3xl font-bold'>
-          Explore Our All Courses Created By{' '}
+          <hr className='border-t border-gray-300 pt-2'></hr>
+          Created By{' '}
           <span className='text-yellow-500 text-xl md:text-3xl'>
             Industry Experts
           </span>
+          <hr className='border-t border-gray-300 mt-2'></hr>
         </h1>
-        <h1 className=' text-2xl'>Courses are well structured</h1>
       </div>
-      <div className='flex flex-wrap w-full pt-5 md:px-16 px-4 gap-4 items-center justify-evenly'>
+      <div className='flex flex-wrap w-full pt-5 md:px-16 px-4 gap-4 items-center justify-evenly mt-8'>
         {courseData?.map((course) => {
           return <CourseCard data={course} key={course.createdAt} />;
         })}

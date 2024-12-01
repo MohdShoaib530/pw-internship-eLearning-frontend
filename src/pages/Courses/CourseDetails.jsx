@@ -1,9 +1,12 @@
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { TbWorld } from 'react-icons/tb';
+import { CiCreditCard2 } from 'react-icons/ci';
 import { refreshAccessToken } from '../../redux/slices/authSlice';
 import { deleteCourseById } from '../../redux/slices/courseSlice';
+import { Rating, RatingStar } from 'flowbite-react';
 
 function CourseDetails() {
   const { state } = useLocation();
@@ -30,59 +33,64 @@ function CourseDetails() {
     }
   }
   return (
-    <div className=' flex flex-col items-center justify-center text-white bg-gray-800 w-full  pt-32 pb-16 px-3'>
-      <div className='flex lg:flex-row flex-col  gap-10  relative w-full sm:w-4/6 border border-gray-400 p-2 rounded-lg px-3 '>
-        <div className='space-y-5 w-auto lg:w-2/6'>
+    <div className='text-gray-300 flex flex-col items-center justify-center  bg-gray-800 w-full  pt-24 pb-16 px-5'>
+      <div className='flex lg:flex-row flex-col  gap-10  relative w-full'>
+        <div className='space-y-2 text-left text-xl w-full flex flex-col items- justify-start '>
+          <h1 className='text-4xl font-bold  mb-3 text-start '>
+            {state?.title}
+          </h1>
+          <p className='text-lg text-left'>{state?.description}</p>
+          <Rating>
+            <button className='btn btn-xs mr-1 bg-yellow-700 text-gray-200'>
+              BestSeller{' '}
+            </button>
+            <RatingStar />
+            <p className='ml-2 text-sm font-bold '>4.95</p>
+            <span className='mx-1.5 h-1 w-1 rounded-full bg-gray-100 ' />
+            <a href='#' className='text-sm font-medium'>
+              (73 ratings ) 1280 students
+            </a>
+          </Rating>
+          <p className='text-base'>Created By: {state?.mentor}</p>
+          <p className='text-base flex flex-row items-center gap-1'>
+            <HiOutlineExclamationCircle /> last updated 08/08/2024
+            <TbWorld /> English <CiCreditCard2 /> English(auto), Hindi(auto)
+          </p>
+          <span className='text-base'>
+            No of Lectures: {state.numberOfLectures}
+          </span>
+          <span className='text-base '>
+            Name of Instructor:{' '}
+            <span className='underline'>{state.mentor}</span>
+          </span>
+          {role === 'admin' || data?.subscription?.status === 'active' ? (
+            <button
+              onClick={() =>
+                navigate('/course/displaylectures', { state: { ...state } })
+              }
+              className='btn btn-primary'
+            >
+              Watch Lectures
+            </button>
+          ) : (
+            <button onClick={() => checkout()} className='btn btn-secondary'>
+              Checkout
+            </button>
+          )}
+          {role === 'admin' && (
+            <button onClick={deleteCourse} className=' btn-warning btn'>
+              Delete Course
+            </button>
+          )}
+        </div>
+        <div className='space-y-5 w-auto lg:w-full '>
           {state.thumbnail && (
             <img
               src={state.thumbnail.secure_url}
               alt='thumbnail'
-              className='w-full h-36 '
+              className='w-full h-72 rounded-lg '
             />
           )}
-
-          <div className='space-y-4 flex flex-col items-center justify-center'>
-            <div className='flex flex-col items-center justify-between text-xl'>
-              <h1 className='text-lg font-semibold text-white text-start'>
-                No of Lectures:{' '}
-                <span className='text-yellow-500'>
-                  {state.numberOfLectures}
-                </span>
-              </h1>
-
-              <h1 className='text-lg font-semibold text-white'>
-                Name of Instructor:{' '}
-                <span className='text-yellow-500'>{state.createdBy}</span>
-              </h1>
-            </div>
-            {role === 'ADMIN' || data?.subscription?.status === 'active' ? (
-              <button
-                onClick={() =>
-                  navigate('/course/displaylectures', { state: { ...state } })
-                }
-                className='btn btn-primary'
-              >
-                Watch Lectures
-              </button>
-            ) : (
-              <button onClick={() => checkout()} className='btn btn-secondary'>
-                Checkout
-              </button>
-            )}
-            {role === 'ADMIN' && (
-              <button onClick={deleteCourse} className=' btn-warning btn'>
-                Delete Course
-              </button>
-            )}
-          </div>
-        </div>
-        <div className='space-y-2 text-xl w-auto flex flex-col items- justify-start lg:w-4/6'>
-          <h1 className='text-2xl font-bold text-yellow-500 mb-5 text-start underline'>
-            {state?.title}
-          </h1>
-
-          <p className='text-yellow-500 underline'>Course description: </p>
-          <p>{state?.description}</p>
         </div>
       </div>
     </div>

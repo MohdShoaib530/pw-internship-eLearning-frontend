@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function CourseCard({ data }) {
   const navigate = useNavigate();
@@ -6,31 +6,20 @@ function CourseCard({ data }) {
   return (
     <div
       onClick={() => navigate('/course/description/', { state: { ...data } })}
-      className='w-full sm:w-[40%] lg:w-[32%] flex flex-col text-left border border-gray-500 rounded-lg p-3 bg-gray-900'
+      className='card card-compact bg-base-100 w-96 shadow-xl h-80'
     >
-      <div className='overflow-hidden'>
+      <figure>
         <img
-          className='h-48 w-full rounded-tl-lg rounded-tr-lg group-hover:scale=[1,2] transition-all ease-in-out diration-300'
           src={data?.thumbnail?.secure_url}
           alt='course thumbnail'
+          className='w-full '
         />
-        <div key={data.id} className='p-3 space-y-1 text-white'>
-          <h2 className='text-xl font-bold text-yellow-500 line-clamp-2'>
-            {data?.title}
-          </h2>
-          <p className='line-clamp-2'>{data?.description}</p>
-          <p className='font-semibold'>
-            <span className='text-yellow-500 font-bold'>Category : </span>
-            {data?.category}
-          </p>
-          <p className='font-semibold'>
-            <span className='text-yellow-500 font-bold'>Total lectures : </span>
-            {data?.numberOfLectures}
-          </p>
-          <p className='font-semibold'>
-            <span className='text-yellow-500 font-bold'>Instructor : </span>
-            {data?.createdBy}
-          </p>
+      </figure>
+      <div className='card-body h-[50%]'>
+        <h2 className='card-title '>{data?.title}</h2>
+        <div className='card-actions justify-end'>
+          <button className='btn btn-outline'>Explore</button>
+          <button className='btn btn-outline'>Buy Now</button>
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ function DisplayLectures() {
   const { lectures } = useSelector((state) => state?.lecture);
   console.log('lectures', lectures);
   const role = useSelector((state) => state?.auth?.data?.role);
+  console.log('role',role);
 
   const [currentVideo, setCurrentVideo] = useState(0);
 
@@ -78,7 +79,7 @@ function DisplayLectures() {
           <ul className='lg:w-5/12 p-2 rounded-lg w-11/12 shadow-[0_0_10px_black] space-y-4'>
             <li className='font-semibold text-xl text-yellow-500 flex items-center justify-between'>
               <p>Lectures list</p>
-              {role === 'ADMIN' && (
+              {role === 'admin' && (
                 <button
                   onClick={() =>
                     navigate('/course/add-lecture', { state: { ...state } })
@@ -108,7 +109,7 @@ function DisplayLectures() {
                         Play
                       </span>
                     </p>
-                    {role === 'ADMIN' && (
+                    {role === 'admin' && (
                       <button
                         onClick={() =>
                           onLectureDelete(state?._id, lecture?._id)
@@ -124,14 +125,14 @@ function DisplayLectures() {
           </ul>
         </div>
       ) : (
-        role === 'ADMIN' && (
+        role === 'admin' && (
           <button
             onClick={() =>
               navigate('/course/add-lecture', { state: { ...state } })
             }
             className='btn btn-primary px-2 py-1 rounded-md font-semibold text-sm'
           >
-            Add new lecture
+            Add new Lecture
           </button>
         )
       )}

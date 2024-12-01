@@ -1,6 +1,5 @@
 import React from 'react';
-import logo from '../../assets/Icons/logo-black.png';
-
+import logo from '../../assets/Icons/sm-high-resolution-logo-transparent.png';
 function Footer() {
   return (
     <div className='w-full flex flex-col items-center justify-center relative'>
@@ -45,7 +44,7 @@ function Footer() {
       </footer>
       <footer className='footer px-10 py-4 border-t'>
         <aside className='items-center grid-flow-col'>
-          <img src={logo} alt='' width={100} height={100} />
+          <img src={logo} alt='' width={40} height={100} />
           <p>
             © 2024 skillsmaster pvt Ltd. <br />
             All Rights Reserved

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Cards from '../components/Cards';
-import CarouselHomePage from '../components/CarouselHomePage';
 import OfflineCentres from '../components/OfflineCentres.jsx';
 import OurServicesCard from '../components/OurServicesCard';
 import examCategoriesData from '../constants/examCategoriesData.js';
@@ -32,11 +31,9 @@ function HomePage() {
   };
 
   return (
-    <div className='homepage relative mt-12 mb-10 md:mt-16 w-full flex flex-col items-center justify-center gap-y-3'>
-      <div className='main-landing-page relative w-full flex flex-col items-center justify-center gap-y-3'>
-        <div className=''>
-          <CarouselHomePage />
-        </div>
+    <div className='homepage relative w-full flex flex-col items-center justify-center gap-y-3'>
+      <div className='bg-gradient-to-b  from-stone-600 to-stone-900 main-landing-page relative w-full h-screen flex flex-col items-center justify-center gap-y-3'>
+        {/* main home page */}
         <div className=' mt-10 flex flex-col items-center justify-center w-full'>
           <div className=' flex flex-col items-center justify-center gap-3 font-semibold px-3 flex-wrap'>
             <h1 className='text-black text-3xl md:text-4xl'>

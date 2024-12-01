@@ -1,118 +1,64 @@
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { alpha, styled } from '@mui/material/styles';
-import Toolbar from '@mui/material/Toolbar';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../assets/Icons/logo-no-background.png';
-
+import logo from '../../assets/Icons/sm-high-resolution-logo-transparent.png';
 import { logoutUser, refreshAccessToken } from '../../redux/slices/authSlice';
-import { CardMedia } from '@mui/material';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25)
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto'
-  }
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  width: '100%',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch'
-      }
-    }
-  }
-}));
+import { CgProfile } from 'react-icons/cg';
+import { RxReader } from 'react-icons/rx';
+import { MdOutlineSupportAgent } from 'react-icons/md';
+import { HiCog, HiLogout, HiViewGrid } from 'react-icons/hi';
+import { MdOutlineCreateNewFolder } from 'react-icons/md';
 
 function Header() {
   const dispatch = useDispatch();
-  const { isLoggedIn, data } = useSelector((state) => state?.auth);
+  const { isLoggedIn, data, role } = useSelector((state) => state?.auth);
   const settings = [
-    {
-      name: 'Singup',
-      slug: '/signup-role',
-      active: !isLoggedIn
-    },
-    {
-      name: 'Signin',
-      slug: '/signin',
-      active: !isLoggedIn
-    },
     {
       name: 'My Profile',
       slug: '/user/profile',
-      active: isLoggedIn
+      active: isLoggedIn,
+      icon: <CgProfile />
+    },
+
+    {
+      name: 'My Dashboard',
+      slug: '/dashboard',
+      active: isLoggedIn,
+      icon: <HiViewGrid />
+    },
+
+    {
+      name: 'Settings',
+      slug: '/settings',
+      active: isLoggedIn,
+      icon: <HiCog />
     },
     {
       name: 'My Courses',
       slug: '/my-courses',
-      active: isLoggedIn
+      active: isLoggedIn,
+      icon: <RxReader />
     },
     {
       name: 'Support',
       slug: '/support',
-      active: isLoggedIn
+      active: isLoggedIn,
+      icon: <MdOutlineSupportAgent />
     },
     {
       name: 'Logout',
       slug: '/logout',
-      active: isLoggedIn
+      active: isLoggedIn,
+      icon: <HiLogout />
     },
     {
       name: 'Create Course',
       slug: '/course/create',
-      active: isLoggedIn
+      active: isLoggedIn,
+      icon: <MdOutlineCreateNewFolder />
     }
   ];
   const navItems = [
-    {
-      name: 'Home',
-      slug: '/'
-    },
-    {
-      name: ' Courses',
-      slug: '/courses'
-    },
-
     {
       name: ' About Us',
       slug: '/about-us'
@@ -123,23 +69,6 @@ function Header() {
     }
   ];
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = (event) => {
-    setAnchorElUser(null);
-  };
 
   const logout = async () => {
     const res = await dispatch(logoutUser());
@@ -149,135 +78,156 @@ function Header() {
     }
   };
   return (
-    <div className='w-full relative z-50'>
-      <AppBar
-        position='fixed'
-        className='fixed flex items-center w-full justify-between z-50 '
-      >
-        <Container>
-          <Toolbar disableGutters>
-            <CardMedia
-              component='img'
-              sx={{
-                height: 50,
-                width: 100,
-                objectFit: 'cover',
-                alignItems: 'center',
-                justifyContent: 'center',
-                display: { xs: 'none', md: 'flex' }
-              }}
-              image={logo}
-              title='logo'
-            />
+    <nav className=' hidden lg:flex z-50 w-full relative'>
+      <div className=' bg-gray-900 text-gray-300 p-1 px-3  fixed flex items-center w-full justify-between z-50 mt-2'>
+        {/* Logo */}
+        <Link to={'/'}>
+          <img src={logo} alt='' width={35} />
+        </Link>
+        {/* Navigation Links */}
+        <div className='flex items-center justify-evenly w-6/12 '>
+          <Link to={'/'}>Home</Link>
+          {/* courses */}
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size='large'
-                aria-label='account of current user'
-                aria-controls='menu-appbar'
-                aria-haspopup='true'
-                onClick={handleOpenNavMenu}
-                color='inherit'
+          <div className='dropdown dropdown-hover'>
+            <div tabIndex={0} role='button'>
+              Courses
+            </div>
+            <ul
+              tabIndex={0}
+              className=' bg-base-100  dropdown-content z-[1] menu p-2  w-52 shadow '
+            >
+              <li>
+                <Link to='/courses'>DSA to development</Link>
+              </li>
+              <li>
+                <Link to='/courses'>Newly Launched</Link>
+              </li>
+              <li>
+                <Link to='/courses'>Artificial Intelligence</Link>
+              </li>
+              <li>
+                <Link to='/courses'>All courses</Link>
+              </li>
+            </ul>
+          </div>
+          {/* tutorials */}
+          <div className='dropdown dropdown-hover '>
+            <div tabIndex={0} role='button'>
+              Tutorials
+            </div>
+            <ul
+              tabIndex={0}
+              className='bg-base-100  dropdown-content z-[1] menu p-2  w-52 shadow'
+            >
+              <li>
+                <Link to='/courses'>Data Structures & Algorithms</Link>
+              </li>
+              <li>
+                <Link to='/courses'>Python</Link>
+              </li>
+              <li>
+                <Link to='/courses'>ML & Data Science</Link>
+              </li>
+              <li>
+                <Link to='/courses'>System Design</Link>
+              </li>
+              <li>
+                <Link to='/courses'>Interview</Link>
+              </li>
+              <li>
+                <Link to='/courses'>Web Development</Link>
+              </li>
+              <li>
+                <Link to='/courses'>Devops & Linux</Link>
+              </li>
+            </ul>
+          </div>
+          {/* practice */}
+          <div className='dropdown dropdown-hover '>
+            <div tabIndex={0} role='button' className=' m-1 '>
+              Practice
+            </div>
+            <ul
+              tabIndex={0}
+              className='bg-base-100  dropdown-content z-[1] menu p-2  w-52 shadow'
+            >
+              <li>
+                <Link to='/courses'>Practice Coding Problems</Link>
+              </li>
+              <li>
+                <Link to='/courses'>All DSA Problems</Link>
+              </li>
+              <li>
+                <Link to='/courses'>Problems of the day</Link>
+              </li>
+            </ul>
+          </div>
+          {navItems.map((item) => (
+            <Link key={item.slug} to={item.slug} className=' m-1'>
+              {item.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Sign Up and Sign In Buttons */}
+        {isLoggedIn ? (
+          <div className='w-fit'>
+            <div className='dropdown dropdown-end '>
+              <div
+                tabIndex={0}
+                role='button'
+                className='btn btn-ghost btn-circle avatar btn-sm'
               >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id='menu-appbar'
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left'
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left'
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' }
-                }}
-              >
-                {navItems.map((navItem) => (
-                  <MenuItem key={navItem.slug} onClick={handleCloseNavMenu}>
-                    <Typography textAlign='center'>
-                      <Link to={`${navItem.slug}`}>{navItem.name}</Link>
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {navItems.map((navItem) => (
-                <Button
-                  key={navItem.slug}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  <Link to={`${navItem.slug}`}>{navItem.name}</Link>
-                </Button>
-              ))}
-            </Box>
-            <Search className='lg:flex hidden mr-2'>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder='Courses...'
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title='Open settings'>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt='Remy Sharp'
+                <div className=' rounded-full'>
+                  <img
+                    alt='Tailwind CSS Navbar component'
                     src={
                       data?.avatar?.secure_url
                         ? data?.avatar?.secure_url
                         : 'https://res.cloudinary.com/du9jzqlpt/image/upload/v1674647316/avatar_drzgxv.jpg'
                     }
                   />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id='menu-appbar'
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className='menu menu-sm dropdown-content bg-base-100  z-[1] mt-2 w-52 p-2 shadow '
               >
                 {settings.map((setting) =>
                   setting.active ? (
-                    <MenuItem key={setting.slug} onClick={handleCloseUserMenu}>
-                      <Typography textAlign='center'>
-                        {setting.slug === '/logout' ? (
-                          <button onClick={logout}>
-                            <Link>{setting.name}</Link>{' '}
-                          </button>
-                        ) : (
-                          <Link to={`${setting.slug}`}>{setting.name}</Link>
-                        )}
-                      </Typography>
-                    </MenuItem>
+                    <li key={setting.slug}>
+                      {setting.slug === '/logout' ? (
+                        <button onClick={logout}>
+                          <span className='badge'>{setting.icon}</span>
+                          <Link>
+                            <span>{setting.name}</span>
+                          </Link>{' '}
+                        </button>
+                      ) : (
+                        <Link to={`${setting.slug}`}>
+                          <span className='badge'>{setting.icon}</span>
+                          <span>{setting.name}</span>
+                        </Link>
+                      )}
+                    </li>
                   ) : null
                 )}
-              </Menu>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </div>
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <div className='flex items-center justify-evenly gap-2'>
+            <Link to='/signup'>
+              <button className='btn btn-primary btn-sm'>Sign Up</button>
+            </Link>
+            <Link to='/signin'>
+              <button className='btn btn-secondary btn-sm'>Sign In</button>
+            </Link>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 }
 export default Header;

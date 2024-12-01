@@ -37,6 +37,7 @@ import PasswordVerification from './pages/User/PasswordVerification.jsx';
 import Profile from './pages/User/Profile.jsx';
 import store from './redux/store.js';
 import SignUpRole from './pages/SignUpRole.jsx';
+import AdminDashboard from './pages/dashboard/AdminDashboard.jsx';
 
 const router = createBrowserRouter([
   {
@@ -136,6 +137,7 @@ const router = createBrowserRouter([
         path: '/course/add-lecture',
         element: <AddNewLecture />
       },
+
       {
         path: '/checkout/success',
         element: <CheckoutSuccess />
@@ -143,6 +145,10 @@ const router = createBrowserRouter([
       {
         path: '/chekcout/failure',
         element: <CheckoutFailure />
+      },
+      {
+        path: '/admin/dashboard',
+        element: <AdminDashboard />
       }
     ]
   }

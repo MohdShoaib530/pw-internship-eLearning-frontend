@@ -1,6 +1,5 @@
 import RequireAuth from './Auth/RequireAuth';
 import Card from './Cards';
-import CarouselHomePage from './CarouselHomePage';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import OfflineCentres from './OfflineCentres';
@@ -11,7 +10,6 @@ import Signup from './SignUp';
 export {
   RequireAuth,
   Card,
-  CarouselHomePage,
   Footer,
   Header,
   OfflineCentres,
