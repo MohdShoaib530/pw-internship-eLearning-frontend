@@ -36,6 +36,7 @@ import MyCourses from './pages/User/MyCourses.jsx';
 import PasswordVerification from './pages/User/PasswordVerification.jsx';
 import Profile from './pages/User/Profile.jsx';
 import store from './redux/store.js';
+import SignUpRole from './pages/SignUpRole.jsx';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <Signup />
+      },
+      {
+        path: '/signup-role',
+        element: <SignUpRole />
       },
       {
         path: '/user/email-verification',

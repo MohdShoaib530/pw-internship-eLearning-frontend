@@ -1,7 +1,7 @@
 function OurServicesCard({ image, title, data, className }) {
   return (
     <div
-      className={`card w-full bg-base-100 text-gray-300 shadow-xl gap-y-3 ${className}`}
+      className={`card w-full bg-gray-500 text-gray-100 shadow-xl gap-y-3 ${className}`}
     >
       <figure className={`px-10 pt-5 h-20 ${className}`}>
         <img src={image} alt={title} className='rounded-xl h-16' />

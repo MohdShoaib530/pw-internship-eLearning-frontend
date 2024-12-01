@@ -45,8 +45,8 @@ function HomePage() {
               Educational Platform
             </h1>
             <h1 className=' text-black text-xl md:text-xl'>
-              Unlock your potential by signing up with Learnyst. Revolutionize
-              learning with <br />
+              Unlock your potential by signing up with skills master.
+              Revolutionize learning with <br />
               <span className=' animate-pulse text-blue-600'>
                 AI driven education at Affordible price. {'  '}
               </span>
@@ -60,7 +60,7 @@ function HomePage() {
               </Link>
             ) : (
               <Link
-                to='/signup'
+                to='/signup-role'
                 className='px-8 py-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition'
               >
                 Sign Up Now
@@ -73,6 +73,9 @@ function HomePage() {
         <div className='grid grid-cols-2 lg:grid-cols-4 gap-y-5 gap-5'>
           {ourServicesData.map((card, index) => (
             <OurServicesCard
+              className={
+                'transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105'
+              }
               key={index}
               image={card.image}
               title={card.title}
@@ -127,7 +130,7 @@ function HomePage() {
           </div>
         </div>
       </div>
-      <div className='paathshaala centers shadow-black shadow-2xl bg-gray-800 text-gray-300 w-[95vw] rounded-3xl flex flex-col items-center justify-center gap-y-3 mt-10 p-3'>
+      <div className='paathshaala centers shadow-black shadow-2xl bg-gray-500 text-gray-300 w-[95vw] rounded-3xl flex flex-col items-center justify-center gap-y-3 mt-10 p-3'>
         <div className='bg-gray-100 text-gray-950 mt-2 rounded-2xl py-1 px-6 font-semibold '>
           <h1 className='text-xl md:text-2xl'>
             Explore <span className='text-blue-700'>Tech-Enabled</span> Offline

@@ -16,8 +16,10 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../../assets/Icons/logo-no-background.png';
 
 import { logoutUser, refreshAccessToken } from '../../redux/slices/authSlice';
+import { CardMedia } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -67,7 +69,7 @@ function Header() {
   const settings = [
     {
       name: 'Singup',
-      slug: '/signup',
+      slug: '/signup-role',
       active: !isLoggedIn
     },
     {
@@ -146,7 +148,6 @@ function Header() {
       await dispatch(refreshAccessToken());
     }
   };
-
   return (
     <div className='w-full relative z-50'>
       <AppBar
@@ -155,22 +156,20 @@ function Header() {
       >
         <Container>
           <Toolbar disableGutters>
-            <Typography
-              variant='h6'
-              noWrap
-              component='a'
-              href='#app-bar-with-responsive-menu'
+            <CardMedia
+              component='img'
               sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                color: 'inherit',
-                textDecoration: 'none'
+                height: 50,
+                width: 100,
+                objectFit: 'cover',
+                alignItems: 'center',
+                justifyContent: 'center',
+                display: { xs: 'none', md: 'flex' }
               }}
-            >
-              Learnyst
-            </Typography>
+              image={logo}
+              title='logo'
+            />
+
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size='large'

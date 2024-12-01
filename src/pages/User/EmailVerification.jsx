@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { emailVerification } from '../../redux/slices/authSlice';
+import toast from 'react-hot-toast';
 
 function EmailVerification() {
   const { state } = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userData = {
     email: state?.email
@@ -13,7 +15,12 @@ function EmailVerification() {
 
   const sendEmail = async () => {
     try {
-      await dispatch(emailVerification(userData));
+      const emailResponse = await dispatch(emailVerification(userData));
+      console.log('emailResponse', emailResponse);
+      if ((emailResponse.payload.message = 'Email is already verified')) {
+        toast.success('Email is already verified');
+        navigate('/signin');
+      }
     } catch (error) {
       console.error('Error sending email verification:', error);
     }

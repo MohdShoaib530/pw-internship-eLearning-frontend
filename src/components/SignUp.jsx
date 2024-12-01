@@ -19,7 +19,8 @@ import { useNavigate } from 'react-router-dom';
 import { createAccount } from '../redux/slices/authSlice.js';
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function SignUp({ userRole }) {
+  console.log('role', userRole.state);
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,17 +29,23 @@ export default function SignUp() {
     event.preventDefault();
     setLoading(true);
     const data = new FormData(event.currentTarget);
+    const privacyPolicyData = data.getAll('privacyPolicy').length;
     try {
       const userdata = {
         email: data.get('email').trim(),
         password: data.get('password').trim(),
         fullName:
-          data.get('firstName').trim() + '' + data.get('lastName').trim()
+          data.get('firstName').trim() + '' + data.get('lastName').trim(),
+        role: userRole.state,
+        privacyPolicy: privacyPolicyData
       };
+      console.log('userdata', userdata);
       if (
         userdata.email === '' ||
         userdata.password === '' ||
-        userdata.fullName === ''
+        userdata.fullName === '' ||
+        userdata.privacyPolicy === 0 ||
+        userdata.role === ''
       ) {
         setLoading(false);
         return toast.error('Please fill all the fields');
@@ -60,7 +67,7 @@ export default function SignUp() {
   };
 
   return !loading ? (
-    <div className='w-full items-center justify-center h-screen'>
+    <div className='w-full items-center justify-center h-screen pt-2'>
       <ThemeProvider theme={defaultTheme}>
         <Container component='main' maxWidth='xs'>
           <CssBaseline />
@@ -76,7 +83,7 @@ export default function SignUp() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component='h1' variant='h5'>
-              Sign up
+              Sign up as {userRole.state}
             </Typography>
             <Box
               component='form'
@@ -130,9 +137,11 @@ export default function SignUp() {
                 <Grid item xs={12}>
                   <FormControlLabel
                     control={
-                      <Checkbox value='allowExtraEmails' color='primary' />
+                      <Checkbox value='privacyPolicyTrue' color='primary' />
                     }
                     label='I accept the Privacy Policy and the Terms of Service.'
+                    name='privacyPolicy'
+                    id='privacyPolicy'
                   />
                 </Grid>
               </Grid>

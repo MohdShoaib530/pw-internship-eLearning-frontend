@@ -42,7 +42,7 @@ function SignIn() {
       if (response.payload?.success === true) {
         setLoading(false);
         navigate('/');
-      } else if (response.payload?.message === 'userEmail is not verified') {
+      } else if (response.payload?.message === 'Email is not verified') {
         setLoading(false);
         navigate('/user/email-verification', {
           state: { email: userdata.email }
@@ -72,14 +72,15 @@ function SignIn() {
             md={7}
             sx={{
               backgroundImage:
-                'url(https://source.unsplash.com/random?wallpapers)',
+                'url(https://cdn.pixabay.com/photo/2021/07/13/11/45/study-6463312_1280.jpg)',
               backgroundRepeat: 'no-repeat',
               backgroundColor: (t) =>
                 t.palette.mode === 'light'
                   ? t.palette.grey[50]
                   : t.palette.grey[900],
               backgroundSize: 'cover',
-              backgroundPosition: 'center'
+              backgroundPosition: 'center',
+              mt: '44px'
             }}
           />
           <Grid
@@ -151,7 +152,7 @@ function SignIn() {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href='signup' variant='body2'>
+                    <Link href='/signup-role' variant='body2'>
                       Don &apos; t have an account? Sign Up
                     </Link>
                   </Grid>
