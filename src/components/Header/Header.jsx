@@ -22,7 +22,7 @@ function Header() {
 
     {
       name: 'My Dashboard',
-      slug: '/dashboard',
+      slug: 'admin/dashboard',
       active: isLoggedIn,
       icon: <HiViewGrid />
     },
@@ -73,7 +73,10 @@ function Header() {
   const logout = async () => {
     const res = await dispatch(logoutUser());
     console.log('res', res);
-    if (res.payload.message === 'jwt expired') {
+    if (
+      res.payload.message === 'jwt expired' ||
+      res.payload.message === 'Unable to get the accessToken'
+    ) {
       await dispatch(refreshAccessToken());
     }
   };

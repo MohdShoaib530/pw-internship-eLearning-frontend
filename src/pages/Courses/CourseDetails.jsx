@@ -63,7 +63,7 @@ function CourseDetails() {
             Name of Instructor:{' '}
             <span className='underline'>{state.mentor}</span>
           </span>
-          {role === 'admin' || data?.subscription?.status === 'active' ? (
+          {role === 'admin' || data?.subscriptions?.status === 'active' ? (
             <button
               onClick={() =>
                 navigate('/course/displaylectures', { state: { ...state } })

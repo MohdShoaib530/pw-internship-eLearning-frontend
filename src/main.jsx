@@ -13,7 +13,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx';
 import NotFound from './components/NotFound.jsx';
 import AboutUs from './pages/About.jsx';
-import ContactUs from './pages/Contact.jsx';
 import CourseCreate from './pages/Courses/CourseCreate.jsx';
 import CourseDetails from './pages/Courses/CourseDetails.jsx';
 import AllCourses from './pages/Courses/CourseList.jsx';
@@ -111,7 +110,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/contact-us',
-        element: <ContactUs />
+        element: <Support />
       },
       {
         path: '/checkout',
