@@ -23,8 +23,14 @@ export const getLectures = createAsyncThunk('/lectures/get', async (id) => {
 export const deleteLecture = createAsyncThunk(
   '/lecture/delete',
   async (data) => {
+    console.log('data', data);
     try {
-      const res = axiosInstance.delete('/courses', data);
+      const res = axiosInstance.delete('/courses', {
+        params: {
+          courseIds: data.courseIds,
+          lectureIds: data.lectureIds
+        }
+      });
       toast.promise(res, {
         loading: 'Wait! deleting lecture ....',
         success: 'lecture deleted successfully',
@@ -57,7 +63,6 @@ export const addLectures = createAsyncThunk('/lecture/add', async (data) => {
   }
 });
 
-
 const courseSlice = createSlice({
   name: 'lecture',
   initialState,
@@ -67,7 +72,7 @@ const courseSlice = createSlice({
       .addCase(getLectures.fulfilled, (state, action) => {
         console.log('action', action.payload);
         if (action.payload.success) {
-          state.lectures = action.payload.data.course.lectures;
+          state.lectures = action.payload.data.lectures;
         }
       })
       .addCase(addLectures.fulfilled, (state, action) => {

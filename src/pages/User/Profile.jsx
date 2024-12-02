@@ -214,6 +214,10 @@ function Profile() {
             <p>Role: </p>
             <p>{userData?.role}</p>
           </div>
+          <div className='flex items-end flex-row gap-2'>
+            <p>Subscription Status: </p>
+            <p>{userData?.data.subscriptions.status}</p>
+          </div>
           {userData?.role === 'USER' && (
             <div className='flex items-end flex-row gap-2'>
               <p>Subscription: </p>

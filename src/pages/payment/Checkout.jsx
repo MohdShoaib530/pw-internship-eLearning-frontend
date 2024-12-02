@@ -3,8 +3,12 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/Icons/sm-high-resolution-logo-transparent.png';
 
-import { refreshAccessToken } from '../../redux/slices/authSlice.js';
+import {
+  getUserById,
+  refreshAccessToken
+} from '../../redux/slices/authSlice.js';
 import {
   getRazorpayKey,
   getRazorpaySubsId,
@@ -39,7 +43,8 @@ function Checkout() {
       amount: '1',
       currency: 'INR',
       subscription_id: subscription_id,
-      name: 'codemon pvt. ltd.',
+      name: 'skillsmaster',
+      image: logo,
       description: 'Test Transaction',
       prefill: {
         email: email,
@@ -57,11 +62,13 @@ function Checkout() {
           paymentDetails.razorpay_subscription_id =
             response.razorpay_subscription_id;
 
+
           const res = await dispatch(paymentVerify(paymentDetails));
           toast.success('payment successful');
 
           if (res?.payload?.success) {
             navigate('/checkout/success');
+            dispatch(getUserById());
           } else {
             navigate('/chekcout/failure');
           }

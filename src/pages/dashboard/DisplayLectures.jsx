@@ -14,19 +14,20 @@ function DisplayLectures() {
   const { lectures } = useSelector((state) => state?.lecture);
   console.log('lectures', lectures);
   const role = useSelector((state) => state?.auth?.data?.role);
-  console.log('role',role);
+  console.log('role', role);
 
   const [currentVideo, setCurrentVideo] = useState(0);
 
   async function onLectureDelete(courseId, lectureId) {
     const res = await dispatch(
-      deleteLecture({ courseId: courseId, lectureId: lectureId })
+      deleteLecture({ courseIds: courseId, lectureIds: lectureId })
     );
     console.log('res', res.payload.message);
     if (res.payload.message === 'jwt expired') {
       await dispatch(refreshAccessToken());
     }
-    await dispatch(getLectures(state._id));
+    const lecutes = await dispatch(getLectures(state._id));
+    console.log('lecutesgot', lecutes);
   }
   async function getLecturesAll() {
     const res = await dispatch(getLectures(state._id));
@@ -98,10 +99,10 @@ function DisplayLectures() {
                       <span className='btn btn-outline btn-info btn-sm'>
                         Lecture {idx + 1} :{' '}
                       </span>{' '}
-                      <span className='btn btn-outline btn-primary btn-sm'>
+                      {/* <span className='btn btn-outline btn-primary btn-sm'>
                         {lecture?.title}
                         {''}
-                      </span>{' '}
+                      </span>{' '} */}
                       <span
                         onClick={() => setCurrentVideo(idx)}
                         className='btn btn-success btn-sm'

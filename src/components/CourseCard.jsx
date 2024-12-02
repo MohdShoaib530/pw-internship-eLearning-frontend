@@ -1,7 +1,10 @@
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 function CourseCard({ data }) {
   const navigate = useNavigate();
+  const userData = useSelector((state) => state.auth);
+  console.log('data', userData);
 
   return (
     <div
@@ -17,10 +20,17 @@ function CourseCard({ data }) {
       </figure>
       <div className='card-body h-[50%]'>
         <h2 className='card-title '>{data?.title}</h2>
-        <div className='card-actions justify-end'>
-          <button className='btn btn-outline'>Explore</button>
-          <button className='btn btn-outline'>Buy Now</button>
-        </div>
+        {userData?.role === 'admin' ||
+        userData?.data.subscriptions.status === 'active' ? (
+          <Link>
+            <button className='btn btn-primary w-full'>Start Learning</button>
+          </Link>
+        ) : (
+          <div className='card-actions justify-end'>
+            <button className='btn btn-outline'>Explore</button>
+            <button className='btn btn-outline'>Buy Now</button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -362,6 +362,19 @@ const authSlice = createSlice({
         state.role = action?.payload?.data?.role;
       }
     });
+    builder.addCase(getUserById.fulfilled, (state, action) => {
+      if (action?.payload?.data) {
+        state.isLoggedIn = action?.payload?.success;
+        localStorage.setItem('isLoggedIn', action?.payload?.success);
+        localStorage.setItem('data', JSON.stringify(action?.payload?.data));
+        localStorage.setItem(
+          'role',
+          JSON.stringify(action?.payload?.data?.role)
+        );
+        state.data = action?.payload?.data;
+        state.role = action?.payload?.data?.role;
+      }
+    });
     builder.addCase(deleteAccount.fulfilled, (state, action) => {
       if (action?.payload?.data) {
         state.isLoggedIn = false;
