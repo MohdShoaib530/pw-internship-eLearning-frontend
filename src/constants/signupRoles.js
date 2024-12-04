@@ -8,10 +8,6 @@ const signupRoles = [
     data: 'user'
   },
   {
-    image: testImage,
-    data: 'mentor'
-  },
-  {
     image: videLectures,
     data: 'admin'
   }

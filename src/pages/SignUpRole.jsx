@@ -8,7 +8,7 @@ function SignUpRole() {
       <h1 className='text-2xl mb-5'>
         Choose your role: for testing purpose only
       </h1>
-      <div className='grid grid-cols-1 sm:grid-cols-3 gap-y-5 gap-5 '>
+      <div className='flex sm:grid-cols-3 gap-y-5 gap-5 '>
         {signupRoles.map((card, index) => (
           <SignupRoleCard
             className={

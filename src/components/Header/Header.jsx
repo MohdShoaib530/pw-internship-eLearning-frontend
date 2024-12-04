@@ -208,7 +208,7 @@ function Header() {
           </div>
         ) : (
           <div className='flex items-center justify-evenly gap-2'>
-            <Link to='/signup'>
+            <Link to='/signup-role'>
               <button className='btn btn-primary btn-sm'>Sign Up</button>
             </Link>
             <Link to='/signin'>
