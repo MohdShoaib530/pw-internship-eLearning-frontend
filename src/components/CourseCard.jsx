@@ -21,7 +21,7 @@ function CourseCard({ data }) {
       <div className='card-body h-[50%]'>
         <h2 className='card-title '>{data?.title}</h2>
         {userData?.role === 'admin' ||
-        userData?.data.subscriptions.status === 'active' ? (
+        userData?.data?.subscriptions?.status === 'active' ? (
           <Link>
             <button className='btn btn-primary w-full'>Start Learning</button>
           </Link>

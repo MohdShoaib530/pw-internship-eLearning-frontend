@@ -4,9 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/Icons/sm-high-resolution-logo-transparent.png';
 import { logoutUser, refreshAccessToken } from '../../redux/slices/authSlice';
 import { CgProfile } from 'react-icons/cg';
-import { RxReader } from 'react-icons/rx';
 import { MdOutlineSupportAgent } from 'react-icons/md';
-import { HiCog, HiLogout, HiViewGrid } from 'react-icons/hi';
+import { HiLogout, HiViewGrid } from 'react-icons/hi';
 import { MdOutlineCreateNewFolder } from 'react-icons/md';
 
 function Header() {
@@ -27,18 +26,6 @@ function Header() {
       icon: <HiViewGrid />
     },
 
-    {
-      name: 'Settings',
-      slug: '/settings',
-      active: isLoggedIn,
-      icon: <HiCog />
-    },
-    {
-      name: 'My Courses',
-      slug: '/my-courses',
-      active: isLoggedIn,
-      icon: <RxReader />
-    },
     {
       name: 'Support',
       slug: '/support',
@@ -81,14 +68,14 @@ function Header() {
     }
   };
   return (
-    <nav className=' hidden lg:flex z-50 w-full relative'>
+    <nav className='flex z-50 w-full relative'>
       <div className=' bg-gray-900 text-gray-300 p-1 px-3  fixed flex items-center w-full justify-between z-50 mt-2'>
         {/* Logo */}
         <Link to={'/'}>
           <img src={logo} alt='' width={35} />
         </Link>
         {/* Navigation Links */}
-        <div className='flex items-center justify-evenly w-6/12 '>
+        <div className='hidden lg:flex items-center justify-evenly w-6/12 '>
           <Link to={'/'}>Home</Link>
           {/* courses */}
 
