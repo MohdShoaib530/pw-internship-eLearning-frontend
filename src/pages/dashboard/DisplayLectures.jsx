@@ -56,7 +56,6 @@ function DisplayLectures() {
               className='object-fill rounded-tl-lg rounded-tr-lg w-full'
               controls
               disablePictureInPicture
-              controlsList='nodownload'
             ></video>
             <div>
               <h1>
@@ -90,6 +89,12 @@ function DisplayLectures() {
                   Add new lecture
                 </button>
               )}
+              <button
+                className='btn btn-secondary'
+                onClick={() => navigate('/quiz')}
+              >
+                Quiz
+              </button>
             </li>
             {lectures &&
               lectures.map((lecture, idx) => {
